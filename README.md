@@ -1,3 +1,4 @@
 # XXE-Detect
 
-Run like python xxeDetect.py path
+Run like:
+  python xxeDetect.py path
