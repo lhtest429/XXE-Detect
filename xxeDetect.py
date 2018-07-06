@@ -23,8 +23,6 @@ def Controller(path):
 	Detect(path,Content,'SAXTransformerFactory.newInstance(','ACCESS_EXTERNAL_DTD','ACCESS_EXTERNAL_DTD','ACCESS_EXTERNAL_STYLESHEET')
 	Detect(path,Content,'XMLReaderFactory.createXMLReader(','.setfeature(','disallow-doctype-decl','load-external-dtd')
 	Detect(path,Content,'SAXReader','disallow-doctype-decl','external-general-entities','external-parameter-entities')
-
-	Detect(path,Content,'SAXParserFactory.newInstance(','','','')
 	Detect(path,Content,'SAXParserFactory.newInstance(','external-general-entities','external-parameter-entities','load-external-dtd')
 	Detect(path,Content,'DocumentBuilderFactory.newInstance(','ACCESS_EXTERNAL_DTD','ACCESS_EXTERNAL_SCHEMA','')
 
