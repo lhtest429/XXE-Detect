@@ -1,5 +1,7 @@
 import sys
 import os
+import zipfile
+import shutil
 
 def Detect(path,Content,keyStr,secureStr1,secureStr2,secureStr3):
 	if Content.find(keyStr)>-1:
@@ -23,12 +25,32 @@ def Controller(path):
 	Detect(path,Content,'SAXTransformerFactory.newInstance(','ACCESS_EXTERNAL_DTD','ACCESS_EXTERNAL_DTD','ACCESS_EXTERNAL_STYLESHEET')
 	Detect(path,Content,'XMLReaderFactory.createXMLReader(','.setfeature(','disallow-doctype-decl','load-external-dtd')
 	Detect(path,Content,'SAXReader','disallow-doctype-decl','external-general-entities','external-parameter-entities')
+
 	Detect(path,Content,'SAXParserFactory.newInstance(','external-general-entities','external-parameter-entities','load-external-dtd')
 	Detect(path,Content,'DocumentBuilderFactory.newInstance(','ACCESS_EXTERNAL_DTD','ACCESS_EXTERNAL_SCHEMA','')
 
-path=sys.argv[1]
+
+  
+def jieyajar(fullpath,file,jarPath):
+	zipFile = zipfile.ZipFile(os.path.join(os.getcwd(), fullpath))
+	for fullpath in zipFile.namelist():
+		zipFile.extract(fullpath, jarPath+'\\'+file.replace('.jar',''))
+	zipFile.close()
+
+#path = sys.argv[1]
+#jarPath = sys.argv[2]
+path = 'C:\Users\Administrator\Downloads\jartest'
+jarPath = 'C:\Users\Administrator\Downloads\jartest\jar'
 for dirpath,dirnames,filenames in os.walk(path):
     for file in filenames:
             fullpath=os.path.join(dirpath,file)
             #print fullpath
+            if fullpath.find('.jar')>-1:
+            	jieyajar(fullpath,file,jarPath)
+            else:
+            	Controller(fullpath)
+for dirpath,dirnames,filenames in os.walk(jarPath):
+    for file in filenames:
+            fullpath=os.path.join(dirpath,file)
             Controller(fullpath)
+shutil.rmtree(jarPath)
